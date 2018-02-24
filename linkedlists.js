@@ -138,7 +138,7 @@ SList.prototype.delete = function(val) {
 // DEEP CLONE
 SList.prototype.clone = function() {
   list = new SList
-  if (this.count > 1) {
+  if (this.count === 1) {
     list.append(this.head.value)
     return list
   }
