@@ -15,6 +15,7 @@ function SList() {
 SList.prototype.append = function(val) {
   if (this.head === null) {
     this.head = new Node(val);
+    this.tail = this.head
     this.count++;
     return
   }
@@ -23,6 +24,7 @@ SList.prototype.append = function(val) {
     runner = runner.next;
   }
   runner.next = new Node(val);
+  this.tail = runner.next
   this.count++
   return;
 }
@@ -32,6 +34,7 @@ SList.prototype.pop = function() {
   if (this.head.next === null) {
     value = this.head.value;
     this.head = null;
+    this.tail = null;
     this.count = 0;
     return value;
   }
@@ -59,6 +62,7 @@ SList.prototype.insertAfter = function(n, val) {
   }
   if (!runner.next) {
     runner.next = new Node(val);
+    this.tail = runner.next
     this.count++;
     return
   }
@@ -66,6 +70,7 @@ SList.prototype.insertAfter = function(n, val) {
   jumper = runner.next;
   runner.next = i;
   i.next = jumper;
+  this.tail = jumper;
   this.count++;
   return
 }
@@ -100,7 +105,8 @@ SList.prototype.delete = function(val) {
   if (this.count == 1) {
     if (this.head.value === val) {
       this.head = null;
-      this.count--;
+      this.tail = null;
+      this.count = 0;
       return;
     }
     else { return false }
@@ -116,7 +122,8 @@ SList.prototype.delete = function(val) {
     runner = runner.next
   }
   if (!runner.next.next) {
-    runner.next = null
+    runner.next = null;
+    this.tail = runner;
     this.count--;
     return
   }
