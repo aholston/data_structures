@@ -1,0 +1,144 @@
+// SINGLY LINKED LISTS
+
+function Node(val) {
+  this.value = val;
+  this.next = null;
+}
+
+function SList() {
+  this.head = null;
+  this.tail = null;
+  this.count = 0;
+}
+
+// APPEND
+SList.prototype.append = function(val) {
+  if (this.head === null) {
+    this.head = new Node(val);
+    this.count++;
+    return
+  }
+  runner = this.head
+  while (runner.next !== null) {
+    runner = runner.next;
+  }
+  runner.next = new Node(val);
+  this.count++
+  return;
+}
+
+// POP
+SList.prototype.pop = function() {
+  if (this.head.next === null) {
+    value = this.head.value;
+    this.head = null;
+    this.count = 0;
+    return value;
+  }
+  runner = this.head.next;
+  follower = this.head;
+  while (runner.next !== null) {
+    runner = runner.next;
+    follower = follower.next;
+  }
+  follower.next = null;
+  this.tail = follower;
+  this.count--;
+  return runner;
+}
+
+// INSERT AFTER 'n'
+SList.prototype.insertAfter = function(n, val) {
+  runner = this.head;
+  jumper = this.head;
+  while (runner.value !== n) {
+    if (runner == null) {
+      return false;
+    }
+    runner = runner.next
+  }
+  if (!runner.next) {
+    runner.next = new Node(val);
+    this.count++;
+    return
+  }
+  i = new Node(val)
+  jumper = runner.next;
+  runner.next = i;
+  i.next = jumper;
+  this.count++;
+  return
+}
+
+// INSERT BEFORE 'n'
+SList.prototype.insertBefore = function(n, val) {
+  if (this.head.val === n) {
+    i = new Node(val)
+    i.next = this.head;
+    this.head = i;
+    this.count++;
+    return
+  }
+  runner = this.head;
+  jumper = this.head;
+  i = new Node(val)
+  while (runner.next.value !== val) {
+    if (runner === null) {
+      return false;
+    }
+    runner = runner.next;
+  }
+  jumper = runner.next;
+  i.next = jumper;
+  runner.next = i;
+  this.count++;
+  return;
+}
+
+// DELETION
+SList.prototype.delete = function(val) {
+  if (this.count == 1) {
+    if (this.head.value === val) {
+      this.head = null;
+      this.count--;
+      return;
+    }
+    else { return false }
+  }
+  runner = this.head;
+  jumper = this.head;
+  faller = this.head
+
+  while(runner.next.value !== val) {
+    if (runner === null) {
+      return false
+    }
+    runner = runner.next
+  }
+  if (!runner.next.next) {
+    runner.next = null
+    this.count--;
+    return
+  }
+  faller = runner.next
+  jumper = faller.next
+  runner.next = jumper
+  faller.next = null
+  this.count--;
+  return
+}
+
+// DEEP CLONE
+SList.prototype.clone = function() {
+  list = new SList
+  if (this.count > 1) {
+    list.append(this.head.value)
+    return list
+  }
+  runner = this.head
+  while (runner !== null) {
+    list.append(runner.value)
+  }
+  return list
+
+}
