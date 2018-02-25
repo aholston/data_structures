@@ -15,17 +15,17 @@ function SList() {
 SList.prototype.append = function(val) {
   if (this.head === null) {
     this.head = new Node(val);
-    this.tail = this.head
+    this.tail = this.head;
     this.count++;
-    return
+    return;
   }
-  runner = this.head
+  runner = this.head;
   while (runner.next !== null) {
     runner = runner.next;
   }
   runner.next = new Node(val);
-  this.tail = runner.next
-  this.count++
+  this.tail = runner.next;
+  this.count++;
   return;
 }
 
@@ -58,13 +58,13 @@ SList.prototype.insertAfter = function(n, val) {
     if (runner == null) {
       return false;
     }
-    runner = runner.next
+    runner = runner.next;
   }
   if (!runner.next) {
     runner.next = new Node(val);
     this.tail = runner.next
     this.count++;
-    return
+    return;
   }
   i = new Node(val)
   jumper = runner.next;
@@ -72,13 +72,13 @@ SList.prototype.insertAfter = function(n, val) {
   i.next = jumper;
   this.tail = jumper;
   this.count++;
-  return
+  return;
 }
 
 // INSERT BEFORE 'n'
 SList.prototype.insertBefore = function(n, val) {
   if (this.head.val === n) {
-    i = new Node(val)
+    i = new Node(val);
     i.next = this.head;
     this.head = i;
     this.count++;
@@ -109,17 +109,17 @@ SList.prototype.delete = function(val) {
       this.count = 0;
       return;
     }
-    else { return false }
+    else { return false; }
   }
   runner = this.head;
   jumper = this.head;
-  faller = this.head
+  faller = this.head;
 
   while(runner.next.value !== val) {
     if (runner === null) {
-      return false
+      return false;
     }
-    runner = runner.next
+    runner = runner.next;
   }
   if (!runner.next.next) {
     runner.next = null;
@@ -127,25 +127,43 @@ SList.prototype.delete = function(val) {
     this.count--;
     return
   }
-  faller = runner.next
-  jumper = faller.next
-  runner.next = jumper
-  faller.next = null
+  faller = runner.next;
+  jumper = faller.next;
+  runner.next = jumper;
+  faller.next = null;
   this.count--;
-  return
+  return;
 }
 
 // DEEP CLONE
 SList.prototype.clone = function() {
-  list = new SList
+  list = new SList;
   if (this.count === 1) {
-    list.append(this.head.value)
-    return list
+    list.append(this.head.value);
+    return list;
   }
   runner = this.head
   while (runner !== null) {
-    list.append(runner.value)
+    list.append(runner.value);
   }
-  return list
+  return list;
 
+}
+
+// REVERSE
+SList.prototype.reverse = function() {
+  walker = this.head;
+  runner = walker.next;
+  while (runner.next !== null) {
+    jumper = runner.next;
+    runner.next = walker;
+    walker = jumper.next;
+    jumper.next = runner;
+    runner = walker.next;
+    walker.next = jumper;
+  }
+  runner.next = walker;
+  this.head.next = null;
+  this.head = runner;
+  return;
 }
