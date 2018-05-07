@@ -146,7 +146,7 @@ DList.prototype.search = function(val) {
 }
 
 // INDEX
-SList.prototype.indexOf = function(val) {
+DList.prototype.indexOf = function(val) {
   if (!this.head) {
     return null
   }
