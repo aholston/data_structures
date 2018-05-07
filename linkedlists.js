@@ -167,3 +167,26 @@ SList.prototype.reverse = function() {
   this.head = runner;
   return;
 }
+
+// INDEX
+SList.prototype.indexOf = function(val) {
+  if (!this.head) {
+    return null
+  }
+  var arr = [];
+  var idx = 0
+  var runner = this.head
+  while (runner.next !== null) {
+    if (runner.val === val) {
+      arr.push(idx);
+    }
+    idx++;
+    runner = runner.next;
+  }
+  if (arr.length > 0) {
+    return arr;
+  } else {
+    return false;
+  }
+
+}
