@@ -40,6 +40,22 @@ BST.prototype.contains = function(val) {
   }
 }
 
+// MINIMUM VALUE
+BST.prototype.getMin = function() {
+  if (!this.left) {
+    return this.val;
+  }
+  this.left.getMin();
+}
+
+// MAXIMUM VALUE
+BST.prototype.getMax = function() {
+  if (!this.right) {
+    return this.val
+  }
+  this.right.getMax();
+}
+
 // DEPTH FIRST TRAVERSAL
 BST.prototype.depthFirstTraversal = function(iterFunc, order) {
   if (order === 'pre-order') {
@@ -59,6 +75,7 @@ BST.prototype.depthFirstTraversal = function(iterFunc, order) {
   }
 }
 
+// BREADTH FIRST TRAVERSAL
 BST.prototype.breadthFirstTraversal = function(iterFunc) {
   var queue = [this];
   while (queue.length) {
