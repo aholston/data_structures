@@ -39,3 +39,37 @@ BST.prototype.contains = function(val) {
     }
   }
 }
+
+// DEPTH FIRST TRAVERSAL
+BST.prototype.depthFirstTraversal = function(iterFunc, order) {
+  if (order === 'pre-order') {
+    iterFunc(this.value);
+  }
+  if (this.left) {
+    this.left.depthFirstTraversal(iterFunc, order);
+  }
+  if (order === 'in-order') {
+    iterFunc(this.value);
+  }
+  if (this.right) {
+    this.right.depthFirstTraversal(iterFunc, order);
+  }
+  if (order === 'post-order') {
+    iterFunc(this.value);
+  }
+}
+
+BST.prototype.breadthFirstTraversal = function(iterFunc) {
+  var queue = [this];
+  while (queue.length) {
+    var treeNode = queue.shift();
+    iterFunc(treeNode);
+    if (treeNode.left) {
+      queue.push(treeNode.left);
+    }
+    if (treeNode.right) {
+      queue.push(treeNode.right);
+    }
+  }
+
+}
